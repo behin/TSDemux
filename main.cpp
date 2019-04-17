@@ -34,11 +34,10 @@ bool writeChunk(const uint8_t *&packet, const uint8_t *endPointer, uint16_t &id,
             output = foundOutput->second;
         }
         packet += 8;
-        const uint8_t jump = packet[0];
-        if (packet + jump + 1 >= endPointer) {
+        packet += packet[0] + 1;
+        if (packet >= endPointer) {
             return false;
         }
-        packet += jump + 1;
     } else {
         if (foundOutput == outputFiles.end()) {
             return false;
